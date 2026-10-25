@@ -54,7 +54,7 @@ const INITIAL_OPS=[
 {id:'supplier',date:'2026-10-29',name:'Платёж поставщику',note:'Крупный платёж · обязательство по договору',amount:-1500000,kind:'required'},
 {id:'client',date:'2026-11-03',name:'Ожидаемое поступление от клиента',note:'ООО «Вектор» · дата не подтверждена',amount:800000,kind:'uncertain'}
 ];
-const defaults=()=>({screen:'home',initial:1000000,reserve:200000,horizon:14,ops:structuredClone(INITIAL_OPS),draft:{shift:500000,shiftDate:'2026-11-03',accelerateDate:'2026-10-28',type:'B'},plan:null,view:'active',filter:'all',chat:[]});
+const defaults=()=>({screen:'home',initial:1000000,reserve:300000,horizon:14,ops:structuredClone(INITIAL_OPS),draft:{shift:500000,shiftDate:'2026-11-03',accelerateDate:'2026-10-28',type:'B'},plan:null,view:'active',filter:'all',chat:[]});
 let state=defaults(), chartCount=0, toastTimer=null;
 try{const saved=JSON.parse(localStorage.getItem(STORE));if(saved&&saved.v===4&&Number.isSafeInteger(saved.initial)&&saved.initial>=0&&Array.isArray(saved.ops)&&saved.ops.length===2&&saved.ops.every(o=>typeof o.id==='string'&&/^2026-\d{2}-\d{2}$/.test(o.date)&&Number.isSafeInteger(o.amount))){state={...defaults(),...saved};if(![14,30].includes(state.horizon))state.horizon=14;if(!state.draft)state.draft=defaults().draft;if(!Array.isArray(state.chat))state.chat=[]}}catch(e){}
 function save(){try{localStorage.setItem(STORE,JSON.stringify({...state,v:4}))}catch(e){}}
